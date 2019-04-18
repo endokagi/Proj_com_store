@@ -1,8 +1,8 @@
 <html>
     
     <div>
-        <input type="button" value="ร้านขายอุปกรณ์คอม~">
-        <input type="button" value="Add New Product">
+        <input type="button" link="home.php" value="ร้านขายอุปกรณ์คอม~">
+        <input type="button" link="product_edit.php" value="Add New Product">
     </div>
 
     <!-- Found -->
