@@ -1,3 +1,3 @@
 <?php
-    include('../product_list.php');
+    include('product_list.php');
 ?>

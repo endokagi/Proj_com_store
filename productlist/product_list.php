@@ -22,12 +22,12 @@
 
     <div>
         <?php
-    $connect = mysqli_connect("localhost","root","","computer_store");
-    $sql = 'SELECT * FROM product order by product_id asc';
+    $connect = mysqli_connect("localhost","root","","computerstore");
+    $sql = 'SELECT * FROM product order by productid asc';
     $result = mysqli_query($connect,$sql);
     echo '<table border="1">';
-    echo '<th>Product_ID</th><th>Product_Name</th><th>Product_Detail</th><th>Brand_ID</th>
-    <th>Stock_ID</th><th>Category_ID</th><th>Price</th>';
+    echo '<th>Product_ID</th><th>Product_Name</th><th>Product_Detail</th>
+    <th>Brand_ID</th><th>Category_ID</th><th>Price</th>';
     while($row = mysqli_fetch_assoc($result)){
         echo '<tr>';
         while(list($key,$value) = each($row)){
