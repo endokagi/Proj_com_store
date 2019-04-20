@@ -1,6 +1,14 @@
 <html>
-    
+
+<head>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body>
+    <h1>Product List</h1>
     <div>
+        <a href="/Proj_com_store">Home</a>
+        <a href="/Proj_com_store/Add Product">Add Product</a>
         <input type="button" link="home.php" value="ร้านขายอุปกรณ์คอม~">
         <input type="button" link="product_edit.php" value="Add New Product">
     </div>
@@ -13,7 +21,7 @@
     ?>
 
     <div>
-    <?php
+        <?php
     $connect = mysqli_connect("localhost","root","","computer_store");
     $sql = 'SELECT * FROM product order by product_id asc';
     $result = mysqli_query($connect,$sql);
@@ -33,6 +41,8 @@
 ?>
 
     </div>
+</body>
+
 
 
 
