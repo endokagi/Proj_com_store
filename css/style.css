@@ -14,3 +14,6 @@ a:hover, a:active {
 .error {
     color: #FF0000;
 }
+.center{
+    text-align: center;
+}
