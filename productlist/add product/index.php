@@ -15,10 +15,11 @@
   <hr>
   <h1>Add Product</h1>
   <form action="<?php $_SERVER["REQUEST_METHOD"] ?>" method="post">
-    Product Name<input type="text" name="pname"><br>
-    Description <input type="text" name="pdetail"><br>
-    Brand <input type="text" name="brandName"><br>
-    Category <select name="category">
+    <table>
+<tr><td>Product Name</td><td><input type="text" name="pname"></td></tr>
+   <tr><td> Description </td><td><input type="text" name="pdetail"></td></tr>
+    <tr><td>Brand</td><td> <input type="text" name="brandName"></td></tr>
+<tr><td>Category </td><td><select name="category">
       <?php
       $connect = mysqli_connect("localhost", "root", "", "computerstore");
       $sql = 'SELECT categoryid,cname from category';
@@ -33,9 +34,9 @@
         mysqli_close($connect);
       }
       ?>
-    </select><br>
-    Price <input type="number" name="price"><br>
-    <input type="submit" value="SUBMIT">
+    </select></td></tr>
+    <tr><td>Price</td><td> <input type="number" name="price"></td></tr></table><br>
+    <table><tr><td><input type="submit" value="SUBMIT"></td></tr></table>
   </form>
   <?php
   if ($_SERVER["REQUEST_METHOD"] == 'POST') {/*
