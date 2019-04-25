@@ -6,6 +6,7 @@
 
 <body>
     
+<<<<<<< HEAD
     <div>
         Your products :
         <?php
@@ -57,6 +58,9 @@
             mysqli_close($connect);
         ?>
     </div> -->
+=======
+    
+>>>>>>> master
 </body>
 
 </html>
