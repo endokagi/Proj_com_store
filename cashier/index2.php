@@ -5,62 +5,105 @@
 </head>
 
 <body>
-    
-<<<<<<< HEAD
+    <hr>
+    <!-- Search for add -->
     <div>
-        Your products :
-        <?php
-            $sqlOrder0 = $_POST['sqlOrder[0]'];
-            $sqlOrder1 = $_POST['sqlOrder[1]'];
-            $sqlOrder2 = $_POST['sqlOrder[2]'];
-            $sqlOrder3 = $_POST['sqlOrder[3]'];
-            $sqlOrder4 = $_POST['sqlOrder[4]'];
-            $arrPro = array($sqlOrder0,$sqlOrder1,$sqlOrder2,$sqlOrder3,$sqlOrder4);
-            $connect = mysqli_connect("localhost","root","","computerstore");
-            // $sqlBrand = 'SELECT PName,PDetail,Price,Unit FROM product inner join brand on product.BrandID = brand.BrandID
-            // inner join stock on product.ProductID = stock.ProductID';
-            $resultBrand = mysqli_query($connect,$sqlPro);
-            echo '<table border=1>';
-            echo '<th>Product name</th><th>Product detail</th>
-            <th>price</th><th>Unit</th>';
-            while($row = mysqli_fetch_assoc($resultBrand)){
-                echo '<tr>';
-                while(list($key,$value) = each($row)){
-                    echo '<td>'.'<option value="'.$value.'">'.$value.'</option>'.'</td>';
-                }
-            }
-            echo '</table>';           
-            mysqli_close($connect);
-        ?>
-        <a href="index.php">Back</a>
+        <form action="<?php $_SERVER["REQUEST_METHOD"] ?>" method="post">
+            <h1>Search product</h1>
+            <p></p>
+            <table align="center">
+                <tr>
+                    <td>
+                        Brand :
+                        <select name="select_brand" id="select_brand">
+                            <option value="null">Please Choose</option>
+                            <?php
+                            $connect = mysqli_connect("localhost", "root", "", "computerstore");
+                            $sqlBrand = 'SELECT BName FROM brand';
+                            $resultBrand = mysqli_query($connect, $sqlBrand);
+                            while ($row = mysqli_fetch_assoc($resultBrand)) {
+                                while (list($key, $value) = each($row)) {
+                                    echo '<option value="' . $value . '">' . $value . '</option>';
+                                }
+                            }
+                            mysqli_close($connect);
+                            ?>
+                        </select>
+                    </td>
+                    <td> Name : <input type="text" name="product_name"></td>
+                    <td><button id="search_add_btn">SEARCH</button></td>
+                </tr>
+            </table>
+        </form>
     </div>
 
-    <!-- <div>
+    <div>
         <?php
-            echo $_POST['select_Brand'];
-            echo $_POST['product_name'];
-            $connect = mysqli_connect("localhost","root","","computerstore");
-            $sql = 'SELECT PName,PDetail,Price,Unit FROM product inner join brand on product.BrandID = brand.BrandID
-            inner join stock on product.ProductID = stock.ProductID
-            where BName="'.$_POST['select_Brand'].'" and PName like "%'.$_POST['product_name'].'%"';
-            $result = mysqli_query($connect,$sql);
-            echo '<table border="1">';
-            echo '<th>Product name</th><th>Product detail</th>
-            <th>price</th><th>Unit</th>';
-            while($row = mysqli_fetch_assoc($result)){
-                echo '<tr>';
-                while(list($key,$value) = each($row)){
-                    echo '<td>'.$value.'</td>';
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            $connect = mysqli_connect("localhost", "root", "", "computerstore");
+            $Brand = $_POST['select_brand'];
+            $PName = $_POST['product_name'];
+            // $PPrice = $_POST['product_price'];
+            $sql = 'SELECT bname ,pname ,pdetail, price, unit from product as `p`
+                inner join brand as `b` on p.Brandid = b.Brandid
+                inner join stock as `s` on p.Productid = s.Productid 
+                where BName="' . $Brand . '"';
+
+            if (!empty($PName)) {
+                $sql = $sql . 'and PName like "%' . $PName . '%"';
+            } else {
+                $sql = $sql;
+            }
+            $result = mysqli_query($connect, $sql);
+            if (!$result) {
+                echo mysqli_error($connect) . '<br>';
+                die('Can not access database!');
+            } else {
+                $numrow = mysqli_num_rows($result);
+                if ($numrow == 0)
+                    echo '<center><h3>PLEASE CHOOSE BRAND</h3></center>';
+                else {
+                    echo '<form action="' . $_SERVER['REQUEST_MEDTHOD'] . '" action ="post">';
+                    echo '<table border="1" style="text-align:center">';
+                    echo '<th>Brand</th><th>Product name</th><th>Product detail</th>
+                <th>Price</th><th>Unit</th><th>Add</th>';
+                    while ($row = mysqli_fetch_assoc($result)) {
+                        echo '<tr>';
+                        while (list($key, $value) = each($row)) {
+                            echo '<td>' . $value . '</td>';
+                        }
+
+                        echo '<td><input name="smtDelete" type="submit" value="add" ></td>';
+                        echo '</tr>';
+                    }
+                    echo '</table>';
+                    echo '</form>';
                 }
+                mysqli_close($connect);
+            }
+        } else {
+            // echo '<h1 align=center>PLEASE SEARCH</h1>';
+            $connect = mysqli_connect("localhost", "root", "", "computerstore");
+            $sql = 'SELECT bname ,pname ,pdetail ,price, unit from product as `p`
+                inner join brand as `b` on p.Brandid = b.Brandid
+                inner join stock as `s` on p.Productid = s.Productid';
+            $result = mysqli_query($connect, $sql);
+            echo '<table border="1" style="text-align:center">';
+            echo '<th>Brand</th><th>Product name</th><th>Product detail</th>
+                <th>Price</th><th>Unit</th><th>Add</th>';
+            while ($row = mysqli_fetch_assoc($result)) {
+                echo '<tr>';
+                while (list($key, $value) = each($row)) {
+                    echo '<td>' . $value . '</td>';
+                }
+                echo '<td><input name="smtDelete" type="submit" value="Add" ></td>';
                 echo '</tr>';
-                }           
+            }
             echo '</table>';
             mysqli_close($connect);
+        }
         ?>
-    </div> -->
-=======
-    
->>>>>>> master
+    </div>
 </body>
 
 </html>
