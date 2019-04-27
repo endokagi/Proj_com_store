@@ -1,11 +1,28 @@
 <html>
 
 <head>
-
+    <link rel="stylesheet" href="../css/style.css">
 </head>
 
 <body>
+    <div>
+        <a href="../index.php">Home</a>
+    </div>
+
+    <div>
+        <form action="">
+        <?php
+        echo "Date: " . date("Y-m-d");
+        // value
+        $Cname = $_POST['Cname'];
+        echo"Welcome: ".'<input type="text" readonly value="'.$Cname.'">'.'<br>'; 
+        echo '<table></table> ';
+        ?>
+        </form>
+    </div>
+
     <hr>
+
     <!-- Search for add -->
     <div>
         <form action="<?php $_SERVER["REQUEST_METHOD"] ?>" method="post">
@@ -63,7 +80,7 @@
                 if ($numrow == 0)
                     echo '<center><h3>PLEASE CHOOSE BRAND</h3></center>';
                 else {
-                    echo '<form action="' . $_SERVER['REQUEST_MEDTHOD'] . '" action ="post">';
+                    echo '<form action="cash_add.php" action ="post">';
                     echo '<table border="1" style="text-align:center">';
                     echo '<th>Brand</th><th>Product name</th><th>Product detail</th>
                 <th>Price</th><th>Unit</th><th>Add</th>';
@@ -105,5 +122,8 @@
         ?>
     </div>
 </body>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
+</script>
+<script src="index.js"></script>
 
 </html>

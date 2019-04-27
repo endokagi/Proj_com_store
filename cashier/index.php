@@ -16,13 +16,12 @@
     <hr>
     <div style="font-size:25px">
         <?php
-        $t = date("Y-m-d");
-        echo "Date: " . $t;
+        echo "Date: " . date("Y-m-d");
         ?>
     </div>
     <div>
-        <!-- show customer -->
-        <form action="index2.php" method="post">
+        <!-- Add customer -->
+        <form action="index2.php" method="post" id="form_sel_cus">
             <?php
             $connect = mysqli_connect("localhost", "root", "", "computerstore");
             $sqlCname = 'SELECT cfirstname from customer';
@@ -37,10 +36,9 @@
                 }
             }
             echo '</select>';
-
             ?>
-            <!-- <button id="">Confirm Name</button> -->
-            <button id="confirm_name">NEXT</button>
+            <button>NEXT</button>
+            <!-- <button id="cancel_sel_cus">CANCEL</button> -->
 
         </form>
         <a href="../customer/index.php">Add Customer</a>
