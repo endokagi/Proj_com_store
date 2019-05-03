@@ -1,10 +1,5 @@
 $(function () {
 
-    // $("#cancel_sel_cus").click(function () {
-    //     $(location).attr('href', '../index.php')
-    // });
-
-    // select_customer from cashier/index
     $("#form_sel_cus").submit(function () {
         var Cname = $("#Cname").val();
         console.log(Cname);
