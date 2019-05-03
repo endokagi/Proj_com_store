@@ -6,13 +6,13 @@
 
 <body>
     <a href="/Proj_com_store">Home</a>
-    <a href="/Proj_com_store/Add Product">Add New Product</a>
+    <a href="/Proj_com_store/productlist/add product">Add New Product</a>
     <h1>Product List</h1>
     <form action="<?php $_SERVER["REQUEST_METHOD"] ?>" method="post">
 
         <table>
             <tr>
-                <td><input style="widgth:100%;" type="text" name="search"></td>
+                <td><input type="text" name="search"></td>
                 <td><input type="submit" value="SEARCH"></td>
                 <td>Search by</td>
                 <td><input type="checkbox" name="productName" value="Product Name" checked> Product Name</td>
@@ -97,7 +97,7 @@
         //echo $sql;
         $result = mysqli_query($connect, $sql);
         if (!$result) {
-            echo mysqli_error() . '<br>';
+            echo mysqli_error($connect) . '<br>';
             die('Can not access database!');
         } else {
             $numrow = mysqli_num_rows($result);
@@ -109,20 +109,57 @@
                 echo '<center><h3>found ' . $numrow . ' entries.</h3></center>';
                 echo '<table border = "1">';
                 echo '<th>Product ID</th><th>Product Name</th><th>Product Detail</th>
-            <th>Brand</th><th>Category</th><th>Price</th>';
+            <th>Brand</th><th>Category</th><th>Price</th><th>#EDIT</th><th>#DELETE</th>';
+                
                 while ($row = mysqli_fetch_assoc($result)) {
-                    echo '<tr>';
+                    echo '<form action="./edit product/edit.php"method="post"><tr>';
                     while (list($key, $value) = each($row)) {
-                        echo '<td>' . $value . '</td>';
+                        echo '<td><input type="hidden" name="'.$key.'" value="'.$value.'">' . $value . '</td>';
                     }
-                    echo '</tr>';
+                    echo '<td><input type="submit" value="Edit"></td></form>';
+                    echo '<td><form action="./delete product/delete.php" method="post">
+                    <input type="hidden" name="pid_delete" value="'
+                    .$row['productid'].'"><input type="submit" value="Delete"></form></td></tr>';
                 }
                 echo '</table>';
             }
             mysqli_close($connect);
         }
     } else {
-        echo "<center><h3>CLICK SEARCH BUTTON</h3></center>";
+        $connect = mysqli_connect('localhost','root','','computerstore');
+        $sql = 'SELECT productid,pname,pdetail,bname,cname,price 
+        FROM product as `p` 
+        inner join brand as `b` on p.brandid = b.brandid 
+        inner join category as `c` on p.categoryid = c.categoryid';
+        $result = mysqli_query($connect, $sql);
+        if (!$result) {
+            echo mysqli_error($connect) . '<br>';
+            die('Can not access database!');
+        } else {
+            $numrow = mysqli_num_rows($result);
+            if ($numrow == 0)
+                echo '<center><h3>Not found</h3></center>';
+
+            else {
+                echo '<center><h3>found ' . $numrow . ' entries.</h3></center>';
+                echo '<table border = "1">';
+                echo '<th>Product ID</th><th>Product Name</th><th>Product Detail</th>
+            <th>Brand</th><th>Category</th><th>Price</th><th>#EDIT</th><th>#DELETE</th>';
+                
+                while ($row = mysqli_fetch_assoc($result)) {
+                    echo '<form action="./edit product/edit.php"method="post"><tr>';
+                    while (list($key, $value) = each($row)) {
+                        echo '<td><input type="hidden" name="'.$key.'" value="'.$value.'">' . $value . '</td>';
+                    }
+                    echo '<td><input type="submit" value="Edit"></td></form>';
+                    echo '<form action="./delete product/delete.php" method="post"><td>
+                    <input type="hidden" name="pid_delete" value="'
+                    .$row['productid'].'"><input type="submit" value="Delete"></td></form></tr>';
+                }
+                echo '</table>';
+            }
+            mysqli_close($connect);
+        }
     }
 
     ?>

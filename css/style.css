@@ -1,5 +1,5 @@
 a:link, a:visited {
-    background-color: #f44336;
+    background-color: green;
     color: white;
     padding: 15px 25px;
     text-align: center;
@@ -8,7 +8,8 @@ a:link, a:visited {
 }
 
 a:hover, a:active {
-    background-color: red;
+    background-color: lightgreen;
+    color:black;
 }
 
 .error {
