@@ -50,7 +50,7 @@
         echo '<table><tr><td><input type="submit" value="Submit"></td></form>';
         echo '<td><form action="../"> <input type="submit" value="Cancle"></td></form></tr></table>';
     } else {
-        echo 'Plase try again';
+        header('location:../');
     }
     ?>
     <hr>
