@@ -2,11 +2,15 @@
 
 <head>
     <link rel="stylesheet" href="../css/style.css">
+    <script src="../js/scripts.js"></script>
 </head>
 
 <body>
     <a href="/Proj_com_store">Home</a>
-    <a href="/Proj_com_store/productlist/add product">Add New Product</a>
+    <a href="/Proj_com_store/productlist/add product">Add A New Product</a>
+    <a href="../brand/">Add A New Brand</a>
+    <a href="../category/">Add A New Category</a>
+
     <h1>Product List</h1>
     <form action="<?php $_SERVER["REQUEST_METHOD"] ?>" method="post">
 
@@ -117,9 +121,9 @@
                         echo '<td><input type="hidden" name="'.$key.'" value="'.$value.'">' . $value . '</td>';
                     }
                     echo '<td><input type="submit" value="Edit"></td></form>';
-                    echo '<td><form action="./delete product/delete.php" method="post">
+                    echo '<form action="./delete product/delete.php" method="post"><td>
                     <input type="hidden" name="pid_delete" value="'
-                    .$row['productid'].'"><input type="submit" value="Delete"></form></td></tr>';
+                    .$row['productid'].'"><input type="submit" value="Delete" onClick="return confirmDelete();"></td></form></tr>';
                 }
                 echo '</table>';
             }
@@ -154,7 +158,7 @@
                     echo '<td><input type="submit" value="Edit"></td></form>';
                     echo '<form action="./delete product/delete.php" method="post"><td>
                     <input type="hidden" name="pid_delete" value="'
-                    .$row['productid'].'"><input type="submit" value="Delete"></td></form></tr>';
+                    .$row['productid'].'"><input type="submit" value="Delete" onClick="return confirmDelete();"></td></form></tr>';
                 }
                 echo '</table>';
             }
