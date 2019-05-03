@@ -13,7 +13,6 @@
         <form action="">
             <?php
             echo "Date: " . date("Y-m-d");
-            // value
             $Cname = $_POST['Cname'];
             echo '<p>' . "Welcome: " . '<input type="text" readonly value="' . $Cname . '">' . '<br>';
             echo '<table></table> ';

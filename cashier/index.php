@@ -34,11 +34,11 @@
                 while (list($key, $value) = each($row)) {
                     echo '<option value="' . $value . '">' . $value . '</option>';
                 }
+                // cookie($value, time() + 60);
             }
             echo '</select>';
             ?>
             <button>NEXT</button>
-            <!-- <button id="cancel_sel_cus">CANCEL</button> -->
 
         </form>
         <a href="../customer/index.php">Add Customer</a>
