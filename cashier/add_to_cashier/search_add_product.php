@@ -125,10 +125,10 @@
                     while (list($key, $value) = each($row)) {
                         echo '<td><input type="hidden" name="' . $key . '" value="' . $value . '">' . $value . '</td>';
                     }
-                    if($value['unit']==0)
-                    echo '<td><input type="submit" readonly value="Add"></td></form>' . '</tr>';
+                    if ($value['unit'] == 0)
+                        echo '<td><input type="submit" readonly value="Add"></td></form>' . '</tr>';
                     else
-                    echo '<td><input type="submit" value="Add"></td></form>' . '</tr>';
+                        echo '<td><input type="submit" value="Add"></td></form>' . '</tr>';
                 }
                 echo '</table>';
             }
@@ -141,7 +141,7 @@
         inner join brand as `b` on p.brandid = b.brandid 
         inner join category as `c` on p.categoryid = c.categoryid
         inner join stock as `s` on p.stockid = s.stockid';
-        
+
         $result = mysqli_query($connect, $sql);
         if (!$result) {
             echo mysqli_error($connect) . '<br>';
@@ -156,17 +156,21 @@
                 echo '<table border = "1">';
                 echo '<th>Product ID</th><th>Product Name</th><th>Product Detail</th>
             <th>Brand</th><th>Category</th><th>Price</th><th>Unit</th><th>#ADD</th>';
-
+                session_start();
                 while ($row = mysqli_fetch_assoc($result)) {
-                    echo '<form action="./add_to_cashier/add_product.php"method="post"><tr>';
+                    echo '<form action="./add_product.php"method="post"><tr>';
                     while (list($key, $value) = each($row)) {
+
                         echo '<td><input type="hidden" name="' . $key . '" value="' . $value . '">' . $value . '</td>';
                     }
-                    if($value['unit']==0)
-                    echo '<td><input type="submit" readonly value="Add"></td></form>' . '</tr>';
-                    else
-                    echo '<td><input type="submit" value="Add"></td></form>' . '</tr>';
-                    // echo '<td><input type="submit" value="Add"></td></form>' . '</tr>';
+
+                    $_SESSION['add_key'] = $key;
+                    if ($row['unit'] == 0)
+                        echo '<td><input type="submit" disabled value="Add"></td></form>' . '</tr>';
+                    else {
+                        $_SESSION['add_key'] = $key;
+                        echo '<td><input type="submit" value="Add"></td></form>' . '</tr>';
+                    }
                 }
                 echo '</table>';
             }
