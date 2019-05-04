@@ -9,5 +9,6 @@
     <a href="/Proj_com_store/Cashier">Cashier</a>
     <a href="/Proj_com_store/Productlist">Product list</a>
     <a href="/Proj_com_store/Stock">Stock</a>
+    <a href="/proj_com_store/Customer">Customer</a>
 </body>    
 </html>
