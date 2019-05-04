@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Listm</title>
+</head>
+<body>
+    <select name="sele">
+        <option value="aa">AA</option>
+        <option value="ss">SS</option>
+    </select>
+
+    <form action="showval.php" method="get">
+          <label>
+            Sex:
+            <input name=sex list=sexes>
+          </label>
+          <datalist id=sexes>
+            <label>
+            or select from the list:
+            <select name=sex>
+              <option >DS</option>
+              <option value="D">Female</option>
+              <option>Male</option>
+            </select>
+            </label>
+          </datalist>
+          <input type="submit" value="Here">
+    </form>
+</body>
+</html>

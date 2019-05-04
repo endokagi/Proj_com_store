@@ -86,4 +86,5 @@ function showTelephoneResult($TelResult){
   if(!$TelResult)
       echo 'Invalid Telephone<br>';
 }
+
 ?>

@@ -1,17 +1,19 @@
 <html>
 
 <head>
+    <title>Cashier Add Product</title>
     <link rel="stylesheet" href="../css/style.css">
     <script src="../js/scripts.js"></script>
+    <!-- <script src="../js/cashier.js"></script> -->
 </head>
 
 <body>
-    <a href="/Proj_com_store">Home</a>
-    <a href="/Proj_com_store/productlist/add product">Add A New Product</a>
+    <a href="../cashier/index.php">Back</a>
+    <!-- <a href="/Proj_com_store/productlist/add product">Add A New Product</a>
     <a href="../brand/">Add A New Brand</a>
-    <a href="../category/">Add A New Category</a>
+    <a href="../category/">Add A New Category</a> -->
 
-    <h1>Product List</h1>
+    <h1>Add Product List</h1>
     <form action="<?php $_SERVER["REQUEST_METHOD"] ?>" method="post">
 
         <table>
@@ -75,7 +77,7 @@
                 }
                 for ($i = 0; $i < count($optional); $i++) {
                     if ($i == 0) {
-                        if ($i == count($optional)-1) {
+                        if ($i == count($optional) - 1) {
                             $sql = $sql . $optional[$i];
                             $report = $report . $reports[$i] . ' </h3></center>';
                         } else {
@@ -83,16 +85,16 @@
                             $report = $report . $reports[$i];
                         }
                     } else {
-                        if ($i == count($optional)-1) {
+                        if ($i == count($optional) - 1) {
                             $sql = $sql . ' or ' . $optional[$i];
-                            $report = $report .' and '. $reports[$i] . ' </h3></center>';
+                            $report = $report . ' and ' . $reports[$i] . ' </h3></center>';
                         } else {
                             $sql = $sql . ' or ' . $optional[$i];
                             $report = $report . ',' . $reports[$i];
                         }
                     }
                 }
-            }else{
+            } else {
                 $report = '<center><h3>Show all products</h3></center>';
             }
         } else {
@@ -105,7 +107,7 @@
             die('Can not access database!');
         } else {
             $numrow = mysqli_num_rows($result);
-            echo $report.'<hr>';
+            echo $report . '<hr>';
             if ($numrow == 0)
                 echo '<center><h3>Not found</h3></center>';
 
@@ -113,24 +115,21 @@
                 echo '<center><h3>found ' . $numrow . ' entries.</h3></center>';
                 echo '<table border = "1">';
                 echo '<th>Product ID</th><th>Product Name</th><th>Product Detail</th>
-            <th>Brand</th><th>Category</th><th>Price</th><th>#EDIT</th><th>#DELETE</th>';
-                
+            <th>Brand</th><th>Category</th><th>Price</th><th>#ADD</th>';
+
                 while ($row = mysqli_fetch_assoc($result)) {
-                    echo '<form action="./edit product/edit.php"method="post"><tr>';
+                    echo '<form action="./index.php"method="post"><tr>';
                     while (list($key, $value) = each($row)) {
-                        echo '<td><input type="hidden" name="'.$key.'" value="'.$value.'">' . $value . '</td>';
+                        echo '<td><input type="hidden" name="' . $key . '" value="' . $value . '">' . $value . '</td>';
                     }
-                    echo '<td><input type="submit" value="Edit"></td></form>';
-                    echo '<form action="./delete product/delete.php" method="post"><td>
-                    <input type="hidden" name="pid_delete" value="'
-                    .$row['productid'].'"><input type="submit" value="Delete" onClick="return confirmDelete();"></td></form></tr>';
+                    echo '<td><input type="submit" value="Add"></td></form>'.'</tr>';
                 }
                 echo '</table>';
             }
             mysqli_close($connect);
         }
     } else {
-        $connect = mysqli_connect('localhost','root','','computerstore');
+        $connect = mysqli_connect('localhost', 'root', '', 'computerstore');
         $sql = 'SELECT productid,pname,pdetail,bname,cname,price 
         FROM product as `p` 
         inner join brand as `b` on p.brandid = b.brandid 
@@ -148,17 +147,14 @@
                 echo '<center><h3>found ' . $numrow . ' entries.</h3></center>';
                 echo '<table border = "1">';
                 echo '<th>Product ID</th><th>Product Name</th><th>Product Detail</th>
-            <th>Brand</th><th>Category</th><th>Price</th><th>#EDIT</th><th>#DELETE</th>';
-                
+            <th>Brand</th><th>Category</th><th>Price</th><th>#ADD</th>';
+
                 while ($row = mysqli_fetch_assoc($result)) {
                     echo '<form action="./edit product/edit.php"method="post"><tr>';
                     while (list($key, $value) = each($row)) {
-                        echo '<td><input type="hidden" name="'.$key.'" value="'.$value.'">' . $value . '</td>';
+                        echo '<td><input type="hidden" name="' . $key . '" value="' . $value . '">' . $value . '</td>';
                     }
-                    echo '<td><input type="submit" value="Edit"></td></form>';
-                    echo '<form action="./delete product/delete.php" method="post"><td>
-                    <input type="hidden" name="pid_delete" value="'
-                    .$row['productid'].'"><input type="submit" value="Delete" onClick="return confirmDelete();"></td></form></tr>';
+                    echo '<td><input type="submit" value="Edit"></td></form>'.'</tr>';
                 }
                 echo '</table>';
             }
