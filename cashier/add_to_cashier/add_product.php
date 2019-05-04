@@ -1,19 +1,16 @@
-<html>
 
-<body>
-    <?php
-    if ($_SERVER['REQUEST_METHOD'] == "POST") {
-        $add_key_product = array();
-        // $add_key_product = $_SESSION['key'];
-        session_start();
-        $_SESSION['add_key'] = $_POST['productid'];
-        $add_key_product = $_SESSION['add_key'];
+<?php
+if ($_SERVER['REQUEST_METHOD'] == "POST") {
+    session_start();
+    if (!isset($_SESSION['add_key'])) {
+        $_SESSION['add_key'] = array();
+    }
+    $_SESSION['add_key'][] = $_POST['productid'];
+     
+    // header("location:./search_add_product.php");
+} else{
+    echo "dsadada";
+}
 
-        echo $add_key_product;
-    }else
 
-
-        ?>
-    </body>
-
-    </html>
+    ?>

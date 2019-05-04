@@ -17,7 +17,6 @@
 
     <h1>Add to Cashier</h1>
     <form action="<?php $_SERVER["REQUEST_METHOD"] ?>" method="post">
-
         <table>
             <tr>
                 <td><input type="text" name="search"></td>
@@ -156,19 +155,15 @@
                 echo '<table border = "1">';
                 echo '<th>Product ID</th><th>Product Name</th><th>Product Detail</th>
             <th>Brand</th><th>Category</th><th>Price</th><th>Unit</th><th>#ADD</th>';
-                session_start();
                 while ($row = mysqli_fetch_assoc($result)) {
                     echo '<form action="./add_product.php"method="post"><tr>';
                     while (list($key, $value) = each($row)) {
 
                         echo '<td><input type="hidden" name="' . $key . '" value="' . $value . '">' . $value . '</td>';
                     }
-
-                    $_SESSION['add_key'] = $key;
                     if ($row['unit'] == 0)
                         echo '<td><input type="submit" disabled value="Add"></td></form>' . '</tr>';
                     else {
-                        $_SESSION['add_key'] = $key;
                         echo '<td><input type="submit" value="Add"></td></form>' . '</tr>';
                     }
                 }
