@@ -33,7 +33,7 @@ if (!$result) {
             <input type="hidden" name="Cdelete" value="'
             .$row['CustomerID'].'"><input type="submit" value="Delete" onClick="return confirmDelete();"></td></form></tr>';
         }
-        echo '</table>';
+        echo '</table><br><br>';
     }
 
     echo '<a href="../">Back</a>';
