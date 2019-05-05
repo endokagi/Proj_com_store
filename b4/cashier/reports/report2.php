@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>Title</title>
+    <title>Top 10 products</title>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -19,8 +19,33 @@
     <?php
         include('../../htmltags/navbar.php');
     ?>
-    <div class="contaier">
-        <h1 class="display-4">Report2</h1>
+    <div class="contaier col">
+        <h1 class="display-4">Top 10 products</h1>
+        <div class="container">
+            <?php
+            $connect = mysqli_connect("localhost", "root", "", "computerstore");
+            $sql = 'SELECT top 10 od.orderid,pname,unit
+            from orderingdetail as `od`
+            inner join product as `p` on od.productid = p.productid
+            inner join ordering as `o` on od.orderid = o.orderid
+            group by unit';
+            $result = mysqli_query($connect, $sql);
+            echo '<table class="table">';
+            echo '<thead class="thead-light">';
+            echo '<th>OrderID</th><th>Product Name</th><th>Unit</th>';
+            echo '</thead>';
+            while ($row = mysqli_fetch_assoc($result)) {
+                echo '<tr>';
+                while (list($key, $value) = each($row)) {
+                    
+                    echo '<td>' . '<option name="'.$key.'" value="' . $value . '">' . $value . '</option>' . '</td>';
+                }
+                echo '</tr>';
+            }
+            echo '</table>';
+            mysqli_close($connect);
+            ?>
+        </div>
     </div>
     <hr>
 
