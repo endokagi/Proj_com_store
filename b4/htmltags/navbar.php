@@ -18,8 +18,9 @@
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                     <a class="dropdown-item" href="/Proj_com_store/b4/cashier">Order</a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="/Proj_com_store/b4/cashier/Reports">Report1</a>
-                    <a class="dropdown-item" href="/Proj_com_store/b4/cashier/Reports/report2.php">Report2</a>
+                    <a class="dropdown-item" href="/Proj_com_store/b4/cashier/Reports">Sales report</a>
+                    <a class="dropdown-item" href="/Proj_com_store/b4/cashier/Reports/report2.php">Best sale products</a>
+                    <a class="dropdown-item" href="/Proj_com_store/b4/cashier/Reports/report3.php">Top unit in Stock</a>
 
                 </div>
             </li>

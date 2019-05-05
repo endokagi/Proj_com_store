@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>HOME</title>
+    <title>Top unit in Stock</title>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -10,36 +10,44 @@
     <!-- Font Awsome -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
     <!-- Bootstrap CSS -->
-    <link href="https://fonts.googleapis.com/css?family=Prompt" rel="stylesheet">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <style>
-        .font{
-            font-family: 'Prompt', sans-serif;
-        }
-    </style>
 </head>
 
 <body>
     <?php
-    include('../htmltags/navbar.php');
+    include('../../htmltags/navbar.php');
     ?>
-    <div class="jumbotron col-12">
-        <div class="row">
-            <div class="col font">
-                <h1 class="display-4 float-letf">ร้าน ขายอุปกรณ์คอม~</h1>
-                <h1 class="display-4 float-right"> ยินดีต้อนรับ </h1>
-            </div>
-            <div class="col">
-                <img src="https://www.pngkey.com/png/detail/212-2126084_monitor-pc-logo-design-computer-logo-png.png" 
-                class="figure-img img-fluid rounded">
-            </div>
-        </div>
-
-
-        <hr class="my-4">
-        <p class="float-right">โปรแกรมนี้ ใช้สำหรับขายอุปกรณ์ต่างๆเกี่ยวกับ Notebook และ PC ทั่วไป</p>
-        <!-- <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a> -->
+    <div class="contaier col">
+        <h1 class="display-4">Top unit in stock</h1>
     </div>
+    <hr>
+    <div class="container">
+        <?php
+        $connect = mysqli_connect("localhost", "root", "", "computerstore");
+        $sql = 'SELECT pname,unit
+            from stock as `s`
+            inner join product as `p` on s.stockid = p.stockid
+            group by unit
+            order by unit DESC';
+        $result = mysqli_query($connect, $sql);
+        echo '<table class="table">';
+        echo '<thead class="thead-dark">';
+        echo '<th>Product Name</th><th>Unit</th>';
+        echo '</thead>';
+        while ($row = mysqli_fetch_assoc($result)) {
+            echo '<tr>';
+            while (list($key, $value) = each($row)) {
+                echo '<td>' . '<option value="' . $value . '">' . $value . '</option>' . '</td>';
+            }
+            echo '</tr>';
+        }
+        echo '</table>';
+        mysqli_close($connect);
+        ?>
+    </div>
+
+
+
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
