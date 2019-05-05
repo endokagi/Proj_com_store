@@ -24,19 +24,19 @@
             <form action="<?php $_SERVER["REQUEST_METHOD"] ?>" method="post">
                 <table class="table">
                     <tr>
-                        <td>Search by </td>
-                        <td><select name="date">
+                        <td class="text-right">Search by</td>
+                        <td><select name="date" class="form-control">
                                 <option value="day">Day</option>
                                 <option value="month">Month</option>
                                 <option value="year">Year</option>
                             </select></td>
-                        <td><input type="submit" value="SEARCH"></td>
+                        <td><input type="submit" class="btn btn-primary btn-lg" value="SEARCH"></td>
                     </tr>
                 </table>
             </form>
         </div>
     </div>
-
+    <hr>
     <div class="container">
         <?php
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -59,15 +59,15 @@
             where orderdate like "' . $date . '%"';
             $result = mysqli_query($connect, $sql);
             echo '<table class="table">';
-            echo '<thead class="thead-light">';
+            echo '<thead class="thead-dark">';
             echo '<th>OrderID</th><th>OrderDate</th><th>TotalPrice</th><th></th><th>Name</th>';
             echo '</thead>';
             while ($row = mysqli_fetch_assoc($result)) {
                 echo '<tr>';
-                echo'<td>'.$row['orderid'].'</td>';
-                echo'<td>'.$row['orderdate'].'</td>';
-                echo'<td>'.$row['totalprice'].'</td>';
-                echo'<td colspan="2">'.$row['cfirstname'].'   '.$row['clastname'].'</td>';
+                echo '<td>' . $row['orderid'] . '</td>';
+                echo '<td>' . $row['orderdate'] . '</td>';
+                echo '<td>' . $row['totalprice'] . '</td>';
+                echo '<td colspan="2">' . $row['cfirstname'] . '   ' . $row['clastname'] . '</td>';
                 echo '</tr>';
             }
             echo '</table>';
@@ -81,15 +81,15 @@
             where orderdate like "' . $date . '%"';
             $result = mysqli_query($connect, $sql);
             echo '<table class="table">';
-            echo '<thead class="thead-light">';
+            echo '<thead class="thead-dark">';
             echo '<th>OrderID</th><th>OrderDate</th><th>TotalPrice</th><th></th><th>Name</th>';
             echo '</thead>';
             while ($row = mysqli_fetch_assoc($result)) {
                 echo '<tr>';
-                echo'<td>'.$row['orderid'].'</td>';
-                echo'<td>'.$row['orderdate'].'</td>';
-                echo'<td>'.$row['totalprice'].'</td>';
-                echo'<td colspan="2">'.$row['cfirstname'].'   '.$row['clastname'].'</td>';
+                echo '<td>' . $row['orderid'] . '</td>';
+                echo '<td>' . $row['orderdate'] . '</td>';
+                echo '<td>' . $row['totalprice'] . '</td>';
+                echo '<td colspan="2">' . $row['cfirstname'] . '   ' . $row['clastname'] . '</td>';
                 echo '</tr>';
             }
             echo '</table>';
@@ -98,8 +98,6 @@
 
         ?>
     </div>
-    <hr>
-
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

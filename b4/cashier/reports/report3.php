@@ -19,32 +19,34 @@
     ?>
     <div class="contaier col">
         <h1 class="display-4">Top unit in stock</h1>
-        <div class="container">
-            <?php
-            $connect = mysqli_connect("localhost", "root", "", "computerstore");
-            $sql = 'SELECT pname,unit
+    </div>
+    <hr>
+    <div class="container">
+        <?php
+        $connect = mysqli_connect("localhost", "root", "", "computerstore");
+        $sql = 'SELECT pname,unit
             from stock as `s`
             inner join product as `p` on s.stockid = p.stockid
             group by unit
             order by unit DESC';
-            $result = mysqli_query($connect, $sql);
-            echo '<table class="table">';
-            echo '<thead class="thead-light">';
-            echo '<th>Product Name</th><th>Unit</th>';
-            echo '</thead>';
-            while ($row = mysqli_fetch_assoc($result)) {
-                echo '<tr>';
-                while (list($key, $value) = each($row)) {
-                    echo '<td>' . '<option value="' . $value . '">' . $value . '</option>' . '</td>';
-                }
-                echo '</tr>';
+        $result = mysqli_query($connect, $sql);
+        echo '<table class="table">';
+        echo '<thead class="thead-dark">';
+        echo '<th>Product Name</th><th>Unit</th>';
+        echo '</thead>';
+        while ($row = mysqli_fetch_assoc($result)) {
+            echo '<tr>';
+            while (list($key, $value) = each($row)) {
+                echo '<td>' . '<option value="' . $value . '">' . $value . '</option>' . '</td>';
             }
-            echo '</table>';
-            mysqli_close($connect);
-            ?>
-        </div>
+            echo '</tr>';
+        }
+        echo '</table>';
+        mysqli_close($connect);
+        ?>
     </div>
-    <hr>
+
+
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->

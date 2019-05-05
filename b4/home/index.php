@@ -10,7 +10,13 @@
     <!-- Font Awsome -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
     <!-- Bootstrap CSS -->
+    <link href="https://fonts.googleapis.com/css?family=Prompt" rel="stylesheet">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <style>
+        .font{
+            font-family: 'Prompt', sans-serif;
+        }
+    </style>
 </head>
 
 <body>
@@ -19,7 +25,7 @@
     ?>
     <div class="jumbotron col-12">
         <div class="row">
-            <div class="col">
+            <div class="col font">
                 <h1 class="display-4 float-letf">ร้าน ขายอุปกรณ์คอม~</h1>
                 <h1 class="display-4 float-right"> ยินดีต้อนรับ </h1>
             </div>
