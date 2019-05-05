@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>Top 10 products</title>
+    <title>Best sale products</title>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -20,25 +20,26 @@
         include('../../htmltags/navbar.php');
     ?>
     <div class="contaier col">
-        <h1 class="display-4">Top 10 products</h1>
+        <h1 class="display-4">Best sale products</h1>
         <div class="container">
             <?php
             $connect = mysqli_connect("localhost", "root", "", "computerstore");
-            $sql = 'SELECT top 10 od.orderid,pname,unit
+            $sql = 'SELECT pname,unit
             from orderingdetail as `od`
             inner join product as `p` on od.productid = p.productid
             inner join ordering as `o` on od.orderid = o.orderid
-            group by unit';
+            GROUP BY unit
+            order by unit DESC';
             $result = mysqli_query($connect, $sql);
             echo '<table class="table">';
             echo '<thead class="thead-light">';
-            echo '<th>OrderID</th><th>Product Name</th><th>Unit</th>';
+            echo '<th>Product Name</th><th>Unit</th>';
             echo '</thead>';
             while ($row = mysqli_fetch_assoc($result)) {
                 echo '<tr>';
                 while (list($key, $value) = each($row)) {
                     
-                    echo '<td>' . '<option name="'.$key.'" value="' . $value . '">' . $value . '</option>' . '</td>';
+                    echo '<td>' . '<option value="' . $value . '">' . $value . '</option>' . '</td>';
                 }
                 echo '</tr>';
             }

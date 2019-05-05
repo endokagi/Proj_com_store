@@ -60,13 +60,14 @@
             $result = mysqli_query($connect, $sql);
             echo '<table class="table">';
             echo '<thead class="thead-light">';
-            echo '<th>OrderID</th><th>OrderDate</th><th>TotalPrice</th><th>Firstname</th><th>lastname</th>';
+            echo '<th>OrderID</th><th>OrderDate</th><th>TotalPrice</th><th></th><th>Name</th>';
             echo '</thead>';
             while ($row = mysqli_fetch_assoc($result)) {
                 echo '<tr>';
-                while (list($key, $value) = each($row)) {
-                    echo '<td>' . '<option name="' . $key . '" value="' . $value . '">' . $value . '</option>' . '</td>';
-                }
+                echo'<td>'.$row['orderid'].'</td>';
+                echo'<td>'.$row['orderdate'].'</td>';
+                echo'<td>'.$row['totalprice'].'</td>';
+                echo'<td colspan="2">'.$row['cfirstname'].'   '.$row['clastname'].'</td>';
                 echo '</tr>';
             }
             echo '</table>';
@@ -81,13 +82,14 @@
             $result = mysqli_query($connect, $sql);
             echo '<table class="table">';
             echo '<thead class="thead-light">';
-            echo '<th>OrderID</th><th>OrderDate</th><th>TotalPrice</th><th>Firstname</th><th>lastname</th>';
+            echo '<th>OrderID</th><th>OrderDate</th><th>TotalPrice</th><th></th><th>Name</th>';
             echo '</thead>';
             while ($row = mysqli_fetch_assoc($result)) {
                 echo '<tr>';
-                while (list($key, $value) = each($row)) {
-                    echo '<td>' . '<option name="' . $key . '" value="' . $value . '">' . $value . '</option>' . '</td>';
-                }
+                echo'<td>'.$row['orderid'].'</td>';
+                echo'<td>'.$row['orderdate'].'</td>';
+                echo'<td>'.$row['totalprice'].'</td>';
+                echo'<td colspan="2">'.$row['cfirstname'].'   '.$row['clastname'].'</td>';
                 echo '</tr>';
             }
             echo '</table>';
