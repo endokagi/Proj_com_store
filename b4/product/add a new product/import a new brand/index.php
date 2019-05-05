@@ -44,7 +44,7 @@ session_start();
         </div>
         <div class="row text-center">
             <div class="col">
-                <button type="submit" class="btn btn-lg btn-primary">Create</button>
+                <button type="submit" class="btn btn-lg btn-primary">Submit</button>
                 </form>
             </div>
 
