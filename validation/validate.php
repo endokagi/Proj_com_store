@@ -37,7 +37,6 @@ function showPNameResult($pnameResult){
       echo 'Invalid Name<br>';
 }
 
-
 function validateTel($Tel){
   if(strlen($Tel)>0&&strlen($Tel)<=20){
     return true;
