@@ -58,7 +58,7 @@ session_start();
                 <span aria-hidden="true">&times;</span>
                 </button>
                 </div>';
-                echo "<script>window.location.href = 'index.php';</script>";
+                echo "<script>window.location.href = '../index.php';</script>";
             }
             
         } else {
@@ -68,7 +68,7 @@ session_start();
             <span aria-hidden="true">&times;</span>
             </button>
             </div>';
-            echo "<script>window.location.href = 'index.php';</script>";
+            echo "<script>window.location.href = '../index.php';</script>";
         }
     } else {
         header("location:../");
