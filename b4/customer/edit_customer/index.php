@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>Title</title>
+    <title>Edit Customer</title>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -11,51 +11,38 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
 </head>
 
 <body>
     <?php
     include('../../htmltags/navbar.php');
     ?>
-    <div class="contaier">
-        <h1 class="display-4">Add a New Customer</h1>
+    <div class="container col">
+        <h1 class="display-4">Edit a Customer Details</h1>
     </div>
     <hr>
-    <div class="container col invalidation">
-        <form method='post' action="add_customer.php" novalidate id="mainform">
-            <table class="table">
-                <tr>
-                    <td>Firstname : </td>
-                    <td><input type="text" placeholder="อนาตาปัตชัยเย" name="name" class="form-control is-valid"></td>
-                    </td>
-                </tr>
-
-                <tr>
-                    <td>Lastname : </td>
-                    <td><input type="text" placeholder="อปัตติเถเถนา" name="Lname" class="form-control is-valid"></td>
-                    </td>
-                </tr>
-
-                <tr>
-                    <td>Address : </td>
-                    <td><input type="text" name="address" class="form-control is-valid"></td>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Telephone Number :</td>
-                    <td> <input type="text" pattern="(\d{9,10})" placeholder="0912345678" name="phone" class="form-control"></td>
-                    </td>
-                </tr>
-                <tr>
-                    <td><input type="submit" value="submit" class="btn btn-primary btn-lg">
-        </form>
-        </td>
-        <td>
-            <form action="../"><input type="submit" value="Cancle" class="btn btn-primary btn-lg"></form>
-        </td>
-        </td>
-        </tr>
-        </table>
+    <div class="container">
+        <?php
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            echo '<form action="edit_page.php" method="post" onvalidation id="mainform"><table>';
+            echo '<tr><td><span class="input-group-text">CustomerID :</span></td>';
+            echo '<td> <input class="form-control" type="text" value="' . $_POST["CustomerID"] . '" disabled></td></tr>';
+            echo '<input name="customerid" type="hidden" value="' . $_POST["CustomerID"] . '">';
+            echo '<tr><td><span class="input-group-text">First Name :</span></td>';
+            echo '<td><input type="text" class="form-control is-valid" name="Fname" value="' . $_POST["CFirstname"] . '"></td></tr>';
+            echo '<tr><td><span class="input-group-text">Last Name :</span></td>';
+            echo '<td><input type="text" class="form-control is-valid" name="Lname" value="' . $_POST['CLastname'] . '"></td></tr>';
+            echo '<tr><td><span class="input-group-text">Address :</span></td>';
+            echo '<td><input type="text" class="form-control is-valid" name="address" value="' . $_POST['Address'] . '"></td></tr>';
+            echo '<tr><td><span class="input-group-text">Telephon Number:</span></td>';
+            echo '<td><input type="text" pattern="(\d{9,10})" class="form-control" name="tel" value="' . $_POST['TEL'] . '"></td></tr>';
+            echo '<tr><td><input type="submit" class="btn btn-primary btn-lg" value="Submit"></td></form>';
+            echo '<td><form action="../"> <input type="submit" class="btn btn-primary btn-lg" value="Cancle"></td></tr></table>';
+        } else {
+            header('location:../');
+        }
+        ?>
     </div>
 
     <!-- Optional JavaScript -->
