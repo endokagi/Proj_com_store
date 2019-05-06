@@ -1,41 +1,66 @@
-<?php
-if($_SERVER['REQUEST_METHOD']=="POST"){
+<!doctype html>
+<html lang="en">
 
-  require_once("../../../validation/validate.php");
-  $Firstname=test_input($_POST['Fname']);
-  $Lastname=test_input($_POST['Lname']);
-  $Address=test_input($_POST['address']);
-  $Tel=$_POST['tel'];
+<head>
+    <title>Edit Status</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+
+<body>
+    <?php
+    if ($_SERVER['REQUEST_METHOD'] == "POST") {
+
+        require_once("../../../validation/validate.php");
+        $Firstname = test_input($_POST['Fname']);
+        $Lastname = test_input($_POST['Lname']);
+        $Address = test_input($_POST['address']);
+        $Tel = $_POST['tel'];
 
 
 
-$FnameResult= validateFirstName($Firstname);
-$LnameResult=validateLastName($Lastname);
-$AddressResult=validateAddress($Address);
-$TelResult=validateTel($Tel);
+        $FnameResult = validateFirstName($Firstname);
+        $LnameResult = validateLastName($Lastname);
+        $AddressResult = validateAddress($Address);
+        $TelResult = validateTel($Tel);
 
 
-if($FnameResult&&$LnameResult&&$AddressResult&&$TelResult){
-$connect = mysqli_connect("localhost","root","","computerstore");
-$sql = 'UPDATE customer SET CFirstname="'.$_POST["Fname"].'", CLastname ="'.$_POST["Lname"].'",
-Address= "'.$_POST["address"].'", TEL="'.$_POST["tel"].'" WHERE CustomerID = "'.$_POST["customerid"].'"';
-$result = mysqli_query($connect,$sql);
-    if(!$result){
-                echo mysqli_error($connect).'<br>';
+        if ($FnameResult && $LnameResult && $AddressResult && $TelResult) {
+            $connect = mysqli_connect("localhost", "root", "", "computerstore");
+            $sql = 'UPDATE customer SET CFirstname="' . $_POST["Fname"] . '", CLastname ="' . $_POST["Lname"] . '",
+Address= "' . $_POST["address"] . '", TEL="' . $_POST["tel"] . '" WHERE CustomerID = "' . $_POST["customerid"] . '"';
+            $result = mysqli_query($connect, $sql);
+            if (!$result) {
+                echo mysqli_error($connect) . '<br>';
                 die('Can not access database');
-            }else
+            } else
                 echo '<script>alert("Edit Successful.")
                 window.location.href="../list of customers/index.php"
                 </script>';
-        }else{
+        } else {
+            echo'<div class="container text-center">';
             showFirstNameResult($FnameResult);
             showLastNameResult($LnameResult);
             showAddressResult($AddressResult);
             showTelephoneResult($TelResult);
-            echo '<table border="1"><tr><td>Edit Fail.</td></tr></table><a href="../">Product List</a>';
+            echo'</div>';
+            echo '<table class="table text-center" ><tr><td>Edit Fail.</td></tr>
+            <tr><td><a class="btn btn-primary btn-lg" href="../">Back to Product List</a></td></tr>
+            </table>';
         }
-    }else{
+    } else {
         header("location:../");
     }
+    ?>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</body>
 
-?>
+</html>
