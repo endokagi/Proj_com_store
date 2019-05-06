@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>Title</title>
+    <title>Confirm Customer</title>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -41,7 +41,7 @@
         }
         echo '</table><br><br>';
 
-        echo '<div class="text-right"><a class="btn btn-primary btn-lg" href="confirm_customer.php">Add</a>&nbsp';
+        echo '<div class="text-right"><a class="btn btn-primary btn-lg" href="index.php">Add</a>&nbsp';
         echo '<a class="btn btn-primary btn-lg" href="../">Back</a></div>';
         mysqli_close($connect);
 
