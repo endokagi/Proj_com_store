@@ -80,20 +80,32 @@
             inner join customer as `c` on o.customerid = c.customerid
             where orderdate like "' . $date . '%"';
             $result = mysqli_query($connect, $sql);
-            echo '<table class="table">';
-            echo '<thead class="thead-dark">';
-            echo '<th>OrderID</th><th>OrderDate</th><th>TotalPrice</th><th></th><th>Name</th>';
-            echo '</thead>';
-            while ($row = mysqli_fetch_assoc($result)) {
+            $numrow = mysqli_fetch_array($result);
+            if ($numrow == 0) {
+                echo '<table class="table">';
+                echo '<thead class="thead-dark">';
+                echo '<th>OrderID</th><th>OrderDate</th><th>TotalPrice</th><th></th><th>Name</th>';
+                echo '</thead>';
                 echo '<tr>';
-                echo '<td>' . $row['orderid'] . '</td>';
-                echo '<td>' . $row['orderdate'] . '</td>';
-                echo '<td>' . $row['totalprice'] . '</td>';
-                echo '<td colspan="2">' . $row['cfirstname'] . '   ' . $row['clastname'] . '</td>';
+                echo '<td colspan="5" class="text-center">Not Found</td>';
                 echo '</tr>';
+                echo '</table>';
+            } else {
+                echo '<table class="table">';
+                echo '<thead class="thead-dark">';
+                echo '<th>OrderID</th><th>OrderDate</th><th>TotalPrice</th><th></th><th>Name</th>';
+                echo '</thead>';
+                while ($row = mysqli_fetch_assoc($result)) {
+                    echo '<tr>';
+                    echo '<td>' . $row['orderid'] . '</td>';
+                    echo '<td>' . $row['orderdate'] . '</td>';
+                    echo '<td>' . $row['totalprice'] . '</td>';
+                    echo '<td colspan="2">' . $row['cfirstname'] . '   ' . $row['clastname'] . '</td>';
+                    echo '</tr>';
+                }
+                echo '</table>';
+                mysqli_close($connect);
             }
-            echo '</table>';
-            mysqli_close($connect);
         }
 
         ?>

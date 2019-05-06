@@ -26,7 +26,7 @@
         echo '<form action="./confirm_add.php"method="post">';
         echo '<div class="input-group mb-3">';
         echo '<div class="input-group-prepend">';
-        echo '<span class="input-group-text" id="inputGroup-sizing-lg">StockID</span>';
+        echo '<span class="input-group-text">StockID</span>';
         echo '</div>';
         echo '<input type="text" value="'  . $_POST['stockid']. '" disabled class="form-control" aria-label="Large" aria-describedby="inputGroup-sizing-sm">';
         echo '<input type="hidden" name="stockid" value="'  . $_POST['stockid']. '">';
@@ -34,14 +34,14 @@
 
         echo '<div class="input-group mb-3">';
         echo '<div class="input-group-prepend">';
-        echo '<span class="input-group-text" id="inputGroup-sizing-lg">Product Name</span>';
+        echo '<span class="input-group-text">Product Name</span>';
         echo '</div>';
         echo '<input type="text" value="' . $_POST['pname'] . '" disabled class="form-control" aria-label="Large" aria-describedby="inputGroup-sizing-sm">';
         echo '</div>';
 
         echo '<div class="input-group mb-3">';
         echo '<div class="input-group-prepend">';
-        echo '<span class="input-group-text" id="inputGroup-sizing-lg">Unit to add</span>';
+        echo '<span class="input-group-text">Unit to add</span>';
         echo '</div>';
         echo '<input type="number" name="add_stock" value="1" class="form-control" aria-label="Large" aria-describedby="inputGroup-sizing-sm">';
         echo '</div>';
