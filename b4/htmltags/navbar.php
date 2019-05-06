@@ -41,7 +41,10 @@
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                     <a class="dropdown-item" href="/Proj_com_store/b4/product/list of products">Search Products</a>
+                    <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="/Proj_com_store/b4/product/add a new product">Import a New Product</a>
+                    <a class="dropdown-item" href="/Proj_com_store/b4/product/add a new product/import a new brand">Import a New Brand</a>
+                    <a class="dropdown-item" href="/Proj_com_store/b4/product/add a new product/create a new category">Create a New Category</a>
                 </div>
             </li>
             <li class="nav-item">

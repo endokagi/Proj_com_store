@@ -1,0 +1,9 @@
+<?php
+if($_SERVER['REQUEST_METHOD']=='POST'){
+    session_start();
+    include('../../../validation/validate.php');
+    $_SESSION['search_products']=test_input($_POST['keyword']);
+    header('location:index.php');
+}else
+    header('location:index.php');
+?>
