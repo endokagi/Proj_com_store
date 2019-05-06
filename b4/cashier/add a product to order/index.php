@@ -5,20 +5,22 @@ session_start();
 <html lang="en">
 
 <head>
-    <title>List of Products</title>
+    <title>Title</title>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Font Awsome -->
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+        integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 
 <body>
     <?php
-    include('../../htmltags/navbar.php');
+        include('../../htmltags/navbar.php');
     ?>
     <div class="contaier">
         <h1 class="display-4">List of Products</h1>
@@ -53,17 +55,18 @@ session_start();
                             <th scope="col">Brand</th>
                             <th scope="col">Category</th>
                             <th scope="col">Price</th>
-                            <th scope="col">#edit</th>
-                            <th scope="col">#delete</th>
+                            <th scope="col">Unit</th>
+                            <th class="text-center" scope="col">#select</th>
                         </tr>
                     </thead>
                     <tbody>
                         <?php
                         $connect = mysqli_connect("localhost", "root", "", "computerstore");
-                        $sql = 'SELECT productid,pname,stockid,pdetail,bname,cname,price 
+                        $sql = 'SELECT productid,pname,pdetail,bname,cname,price,unit,p.stockid 
                         FROM product as `p` 
                         inner join brand as `b` on p.brandid = b.brandid 
-                        inner join category as `c` on p.categoryid = c.categoryid
+                        inner join category as `c` on p.categoryid = c.categoryid 
+                        inner join stock as `s` on p.stockid = s.stockid  
                         where productid like "%' . $_SESSION['search_products'] . '%" 
                         or pname like "%'.$_SESSION['search_products'].'%" 
                         or pdetail like "%'.$_SESSION['search_products'].'%" 
@@ -82,19 +85,23 @@ session_start();
                                 echo '<tr><th colspan="8" class="table-secondary"><center>Not Found</center></th></tr>';
                             }else{
                                 while ($row = mysqli_fetch_assoc($result)) {
-                                    echo '<form action="../edit a product/index.php"method="post"><tr>';
-                                    while (list($key, $value) = each($row)) {
-                                        if($key!='stockid')
-                                        echo '<td><input type="hidden" name="'.$key.'" value="'.$value.'">' . $value . '</td>';
+                                    echo '<form action="add.php" method="post"><tr>
+                                    <input type="hidden" name="sid" value="'.$row['stockid'].'">
+                                    <td>'.$row['productid'].'<input type="hidden" name="pid" value="'.$row['productid'].'"> </td>
+                                    <td >'.$row['pname'].'<input type="hidden" name="pname" value="'.$row['pname'].'"> </td>
+                                    <td>'.$row['pdetail'].'<input type="hidden" name="pdetail" value="'.$row['pdetail'].'"></td>
+                                    <td>'.$row['bname'].' <input type="hidden" name="bname" value="'.$row['bname'].'"> </td>
+                                    <td>'.$row['cname'].' <input type="hidden" name="cname" value="'.$row['cname'].'"> </td>
+                                    <td>'.$row['price'].' <input type="hidden" name="price" value="'.$row['price'].'"> </td>
+                                    <td>'.$row['unit'].' <input type="hidden" name="unit" value="'.$row['unit'].'"> </td>';
+                                    if($row['unit']==0){
+                                        echo  '<td class="text-center"><input disabled type="submit" value="Out of Stock"></td>
+                                        </tr></form>';
+                                    }else{
+                                        echo  '<td class="text-center"><input type="submit" value="select"></td>
+                                        </tr></form>';
                                     }
-                                    echo '<td><button class="btn-warning" type="submit" >Edit</button></td></form>';
-                                    echo '<form action="../delete a product/delete.php" method="post"><td>
-                                    <input  type="hidden" name="pid_delete" value="'
-                                    .$row['productid'].'">
-                                    <input  type="hidden" name="sid_delete" value="'
-                                    .$row['stockid'].'">
-                                    <input class="btn-danger" type="submit" value="Delete" onClick="return confirmDelete();">
-                                    </td></form></tr>';
+                                   
                                 }
                             }
                             mysqli_close($connect);
@@ -107,11 +114,16 @@ session_start();
         </div>
     </div>
     <!-- Optional JavaScript -->
-    <script src="../../js/scripts.js"></script>
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
 </body>
 
 </html>
