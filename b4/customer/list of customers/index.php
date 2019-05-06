@@ -42,18 +42,25 @@
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $connect = mysqli_connect('localhost', 'root', '', 'computerstore');
             $sql = 'SELECT * FROM customer
-            where cfirstname="%' . $_POST['search'] . '%"
-            or clastname="%' . $_POST['search'] . '%"';
+            where cfirstname like "%' . $_POST['search'] . '%"
+            or clastname like "%' . $_POST['search'] . '%"';
             $result = mysqli_query($connect, $sql);
             if (!$result) {
                 echo mysqli_error($connect) . '<br>';
                 die('Can not access database!');
             } else {
                 $numrow = mysqli_num_rows($result);
-                if ($numrow == 0)
-                    echo '<center><h3>Not found</h3></center>';
-
-                else {
+                if ($numrow == 0) {
+                    echo '<div class="container">';
+                    echo '<table class="table">';
+                    echo '<thead class="thead-dark">';
+                    echo '<th>CustomerID</th><th>Frist Name</th><th>Last Name</th><th>Address</th>
+                <th>Telephone Number</th><th>#EDIT</th><th>#DELETE</th>';
+                    echo '</thead><tr>';
+                    echo '<tr><th colspan="7" class="table-secondary"><center>Not Found</center></th></tr>';
+                    echo '</tr></table>';
+                    echo '</div>';
+                } else {
                     echo '<center><h3>found ' . $numrow . ' entries.</h3></center>';
                     echo '<div class="container">';
                     echo '<table class="table">';
