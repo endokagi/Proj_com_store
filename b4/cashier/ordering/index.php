@@ -1,11 +1,14 @@
 <?php
 session_start();
+/* if(isset($_SESSION['customerid'])){
+    $_SESSION['customerid']='';
+} */
 ?>
 <!doctype html>
 <html lang="en">
 
 <head>
-    <title>Title</title>
+    <title>Ordering</title>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -66,16 +69,17 @@ session_start();
                                 $_SESSION['cartUnit'] = array();
                                 $_SESSION['caetAmount'] = array();
                                 $_SESSION['cartStatus'] = "idle";
-                                $_SESSION['cartTotolPrice']=0;
+                                $_SESSION['cartTotolPrice'] = 0;
+                                $_SESSION['countinglist']=0;
                             }
                             if ($_SESSION['cartStatus'] == "idle") {
                                 echo '<tr><th colspan="7" class="table-secondary"><center>Empty Order</center></th></tr>';
                             } else {
-                                $countRows =0;
+                                $_SESSION['countinglist']=0;
                                 for ($i = 0; $i < count($_SESSION['cartPID']); $i++) {
-                                    if($_SESSION['cartPID'][$i]!=''){
+                                    if ($_SESSION['cartPID'][$i] != '') {
                                         echo "<tr>
-                                        <th>" . ($countRows + 1) . "</th>
+                                        <th>" . ($_SESSION['countinglist'] + 1) . "</th>
                                         <td>" . $_SESSION['cartPID'][$i] . "</td>
                                         <td>" . $_SESSION['cartPname'][$i] . "</td>
                                         <td>" . $_SESSION['cartPdetail'][$i] . "
@@ -84,25 +88,25 @@ session_start();
                                         <td>
                                         <input type='number'  class='text-center' disabled value='" . $_SESSION['cartAmount'][$i] . "'>
                                         <form action='../update amount of a product/index.php' method='post'>
-                                        <input type='hidden' name='index' value='".$i."'>
+                                        <input type='hidden' name='index' value='" . $i . "'>
                                         <input type='submit' value='update'></form>
                                         </td>
                                         <td>" . ($_SESSION['cartPrice'][$i] * $_SESSION['cartAmount'][$i]) .
-                                        "(" . $_SESSION['cartPrice'][$i] . ")</td>  
+                                            "(" . $_SESSION['cartPrice'][$i] . ")</td>  
                                         <td><form action='../remove a product/index.php' method='post'>
-                                        <input type='hidden' name='index' value='".$i."'>
+                                        <input type='hidden' name='index' value='" . $i . "'>
                                         <input type='submit' value='remove'>
                                         </form></td>
                                         </tr>";
-                                        $countRows++;
+                                        $_SESSION['countinglist']++;
                                     }
-                                    
                                 }
-                                if($countRows==0){
+                                if ($_SESSION['countinglist']== 0) {
+                                    $_SESSION['cartStatus'] = "idle";
                                     echo '<tr><th colspan="7" class="table-secondary"><center>Empty Order</center></th></tr>';
                                 }
                             }
-                            
+
                             ?>
                         </tbody>
                         <thead class="thead-dark">
@@ -118,12 +122,37 @@ session_start();
                         </thead>
                     </table>
                 </div>
+                <form action="../confirm order/index.php" method="post">
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <label class="input-group-text" for="brandSelect">Customer</label>
+                    </div>
+                   
+                    <select name="cusid" class="custom-select" id="brandSelect">
+                        <option>Choose...</option>
+                        <?php
+                        $connect = mysqli_connect("localhost", "root", "", "computerstore");
+                        $sql = 'SELECT customerid,cfirstname,clastname from customer';
+                        $result = mysqli_query($connect, $sql);
+                        if (!$result) {
+                            echo mysqli_error($connect) . '<br>';
+                            die('Can not access database!');
+                        } else {
+                            while ($row = mysqli_fetch_assoc($result)) {
+                                    echo '<option value="' . $row['customerid'] . '">' . $row['cfirstname'].' '.$row['clastname']. '</option>';
+                            }
+                            mysqli_close($connect);
+                        }
+                        ?>
+                    </select>
+                </div>
             </div>
+
         </div>
         <div class="row justify-content-md-center text-center">
             <div class="col-lg-10 ">
                 <a class="btn btn-primary" href="../add a product to order" role="button">Add a product to order</a>
-                <a class="btn btn-primary" href="../confirm order" role="button">Confirm Order</a>
+                <button class="btn btn-primary" type='submit' role="button">Confirm Order</button></form>
             </div>
         </div>
     </div>

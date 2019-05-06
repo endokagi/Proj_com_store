@@ -1,40 +1,55 @@
-<!doctype html>
-<html lang="en">
+<?php
+session_start();
+if ($_SERVER['REQUEST_METHOD'] == "POST") {
+  if ($_POST['cusid'] == 'Choose...') {
+    $_SESSION['alert_message'] = '<div class="alert alert-warning alert-dismissible fade show" role="alert">
+              <strong>Warning!</strong> Please select customer or create one.
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>';
+    header('location:../');
+  } else {
+    if ($_SESSION['cartStatus'] == "ordering") {
+      $connect = mysqli_connect("localhost", "root", "", "computerstore");
+      $sql = 'insert into ordering values(NULL,NULL,' . $_SESSION['cartTotolPrice'] . ',' . $_POST['cusid'] . ');';
+      $result = mysqli_query($connect, $sql);
+      $sqlSelectStockID = 'SELECT *
+        FROM stock
+        ORDER BY stockid DESC
+        LIMIT 1';
+      $result = mysqli_query($connect, $sqlSelectStockID);
+      while($row=mysqli_fetch_array($result)){
+        $orderingID = $row[0];
+      }
+      echo $orderingID;
+      
+      for ($i = 0; $i < count($_SESSION['cartPID']); $i++) {
+        if ($_SESSION['cartPID'][$i]!='') {
+          $sql = 'insert into orderingdetail values(' . $orderingID . ',' . $_SESSION['cartPID'][$i]. ')';
+          mysqli_query($connect, $sql);
+        }
+      }
 
-<head>
-    <title>Title</title>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-    <!-- Font Awsome -->
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
-        integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-</head>
-
-<body>
-    <?php
-        include('../../htmltags/navbar.php');
-    ?>
-    <div class="contaier">
-        <h1 class="display-4">Confirm the Order</h1>
-    </div>
-    <hr>
-
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-        crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-        crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-        crossorigin="anonymous"></script>
-</body>
-
-</html>
+      $_SESSION['alert_message'] = '<div class="alert alert-success alert-dismissible fade show" role="alert">
+              <strong>Congratulation!</strong> Ordering successful.
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>';
+      header('location:../');
+      
+    } else {
+      $_SESSION['alert_message'] = '<div class="alert alert-warning alert-dismissible fade show" role="alert">
+              <strong>Warning!</strong> The order is empty.
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>';
+      header('location:../');
+    }
+  }
+} else {
+  header('location:../');
+}
+?>
