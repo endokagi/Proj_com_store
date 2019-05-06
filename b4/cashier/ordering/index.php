@@ -25,50 +25,105 @@ session_start();
     </div>
     <hr>
     <?php
-    if(isset($_SESSION['alert_message'])){
+    if (isset($_SESSION['alert_message'])) {
         echo $_SESSION['alert_message'];
-        $_SESSION['alert_message']="";
+        $_SESSION['alert_message'] = "";
     }
     ?>
     <div class="container">
         <div class="row justify-content-md-center text-center">
             <div class="col-lg-10 ">
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text" id="basic-addon1">Date(Year-Month-Day)</span>
-                        </div>
-                        <input type="text" class="form-control" placeholder="<?php echo date('Y-m-d'); ?>" disabled aria-label="Username" aria-describedby="basic-addon1">
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon1">Date(Year-Month-Day)</span>
                     </div>
-                    <div class="table-responsive">
-                        <table class="table ">
-                            <thead class="thead-dark">
-                                <tr>
-                                    <th>#</th>
-                                    <th>Product Name</th>
-                                    <th>Details</th>
-                                    <th>#remove</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php
-                                if(!isset($_SESSION['cart']))
-                                    $_SESSION['cart']=array();
-                                    if(count($_SESSION['cart'])==0){
-                                        echo '<tr><th colspan="4" class="table-secondary"><center>Empty Cart</center></th></tr>';
-                                    }else{
-                                        for($i=0;$i<$_SESSION['cart'];$i++){
-                                            echo '<tr></tr>';
-                                        }
+                    <input type="text" class="form-control" placeholder="<?php echo date('Y-m-d'); ?>" disabled aria-label="Username" aria-describedby="basic-addon1">
+                    <a name="" class="btn btn-warning" href="../reset order/reset.php" role="button">Reset</a>
+                </div>
+                <div class="table-responsive">
+                    <table class="table ">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th>#</th>
+                                <th>Product ID</th>
+                                <th>Product Name</th>
+                                <th>Details</th>
+                                <th>Amount</th>
+                                <th>Price(Price per unit)</th>
+                                <th>#remove</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php
+                            if (!isset($_SESSION['cartStatus'])) {
+                                $_SESSION['cartPID'] = array();
+                                $_SESSION['cartSID'] = array();
+                                $_SESSION['cartPname'] = array();
+                                $_SESSION['cartPdetail'] = array();
+                                $_SESSION['cartBname'] = array();
+                                $_SESSION['cartCname'] = array();
+                                $_SESSION['cartPrice'] = array();
+                                $_SESSION['cartUnit'] = array();
+                                $_SESSION['caetAmount'] = array();
+                                $_SESSION['cartStatus'] = "idle";
+                                $_SESSION['cartTotolPrice']=0;
+                            }
+                            if ($_SESSION['cartStatus'] == "idle") {
+                                echo '<tr><th colspan="7" class="table-secondary"><center>Empty Order</center></th></tr>';
+                            } else {
+                                $countRows =0;
+                                for ($i = 0; $i < count($_SESSION['cartPID']); $i++) {
+                                    if($_SESSION['cartPID'][$i]!=''){
+                                        echo "<tr>
+                                        <th>" . ($countRows + 1) . "</th>
+                                        <td>" . $_SESSION['cartPID'][$i] . "</td>
+                                        <td>" . $_SESSION['cartPname'][$i] . "</td>
+                                        <td>" . $_SESSION['cartPdetail'][$i] . "
+                                        <br> brand: " . $_SESSION['cartBname'][$i] . "
+                                        </td>
+                                        <td>
+                                        <input type='number'  class='text-center' disabled value='" . $_SESSION['cartAmount'][$i] . "'>
+                                        <form action='../update amount of a product/updateAmount.php' method='post'>
+                                        <input type='hidden' name='index' value='".$i."'>
+                                        <input type='submit' value='update'></form>
+                                        </td>
+                                        <td>" . ($_SESSION['cartPrice'][$i] * $_SESSION['cartAmount'][$i]) .
+                                        "(" . $_SESSION['cartPrice'][$i] . ")</td>  
+                                        <td><form action='../remove a product/remove.php' method='post'>
+                                        <input type='hidden' name='index' value='".$i."'>
+                                        <input type='submit' value='remove'>
+                                        </form></td>
+                                        </tr>";
+                                        $countRows++;
                                     }
-                                ?>
-                            </tbody>
-                        </table>
-                    </div>
+                                    
+                                }
+                                if($countRows==0){
+                                    echo '<tr><th colspan="7" class="table-secondary"><center>Empty Order</center></th></tr>';
+                                }
+                            }
+                            
+                            ?>
+                        </tbody>
+                        <thead class="thead-dark">
+                            <tr>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th>Totol Price</th>
+                                <th><input disabled type="number" class="text-center" value="<?php echo $_SESSION['cartTotolPrice'] ?>"></th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
             </div>
         </div>
         <div class="row justify-content-md-center text-center">
             <div class="col-lg-10 ">
-                <a name="" id="" class="btn btn-primary" href="../add a product to cart" role="button">Add a product to cart</a>
+                <a class="btn btn-primary" href="../add a product to order" role="button">Add a product to order</a>
+                <a class="btn btn-primary" href="../confirm order" role="button">Confirm Order</a>
             </div>
         </div>
     </div>

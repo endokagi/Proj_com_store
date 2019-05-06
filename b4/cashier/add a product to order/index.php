@@ -56,13 +56,13 @@ session_start();
                             <th scope="col">Category</th>
                             <th scope="col">Price</th>
                             <th scope="col">Unit</th>
-                            <th scope="col">#select</th>
+                            <th class="text-center" scope="col">#select</th>
                         </tr>
                     </thead>
                     <tbody>
                         <?php
                         $connect = mysqli_connect("localhost", "root", "", "computerstore");
-                        $sql = 'SELECT productid,pname,pdetail,bname,cname,price,unit 
+                        $sql = 'SELECT productid,pname,pdetail,bname,cname,price,unit,p.stockid 
                         FROM product as `p` 
                         inner join brand as `b` on p.brandid = b.brandid 
                         inner join category as `c` on p.categoryid = c.categoryid 
@@ -86,15 +86,22 @@ session_start();
                             }else{
                                 while ($row = mysqli_fetch_assoc($result)) {
                                     echo '<form action="add.php" method="post"><tr>
-                                    <td>'.$row['productid'].'<input type="hidden" name="pid" value="'.$row['productid'].'"></td>
-                                    <td >'.$row['pname'].'<input type="hidden" name="pname" value="'.$row['pname'].'"></td>
+                                    <input type="hidden" name="sid" value="'.$row['stockid'].'">
+                                    <td>'.$row['productid'].'<input type="hidden" name="pid" value="'.$row['productid'].'"> </td>
+                                    <td >'.$row['pname'].'<input type="hidden" name="pname" value="'.$row['pname'].'"> </td>
                                     <td>'.$row['pdetail'].'<input type="hidden" name="pdetail" value="'.$row['pdetail'].'"></td>
-                                    <td>'.$row['bname'].'<input type="hidden" name="bname" value="'.$row['bname'].'"></td>
-                                    <td>'.$row['cname'].'<input type="hidden" name="cname" value="'.$row['cname'].'"></td>
-                                    <td>'.$row['price'].'<input type="hidden" name="price" value="'.$row['price'].'"></td>
-                                    <td>'.$row['unit'].'<input type=hidden" name="price value="'.$row['unit'].'"></td>
-                                    <td><input type="submit" value="select"></td>
-                                    </tr></form>';
+                                    <td>'.$row['bname'].' <input type="hidden" name="bname" value="'.$row['bname'].'"> </td>
+                                    <td>'.$row['cname'].' <input type="hidden" name="cname" value="'.$row['cname'].'"> </td>
+                                    <td>'.$row['price'].' <input type="hidden" name="price" value="'.$row['price'].'"> </td>
+                                    <td>'.$row['unit'].' <input type="hidden" name="unit" value="'.$row['unit'].'"> </td>';
+                                    if($row['unit']==0){
+                                        echo  '<td class="text-center"><input disabled type="submit" value="Out of Stock"></td>
+                                        </tr></form>';
+                                    }else{
+                                        echo  '<td class="text-center"><input type="submit" value="select"></td>
+                                        </tr></form>';
+                                    }
+                                   
                                 }
                             }
                             mysqli_close($connect);
