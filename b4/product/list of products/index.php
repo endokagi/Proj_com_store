@@ -63,7 +63,7 @@ session_start();
                         $sql = 'SELECT productid,pname,stockid,pdetail,bname,cname,price 
                         FROM product as `p` 
                         inner join brand as `b` on p.brandid = b.brandid 
-                        inner join category as `c` on p.categoryid = c.categoryid 
+                        inner join category as `c` on p.categoryid = c.categoryid
                         where productid like "%' . $_SESSION['search_products'] . '%" 
                         or pname like "%'.$_SESSION['search_products'].'%" 
                         or pdetail like "%'.$_SESSION['search_products'].'%" 

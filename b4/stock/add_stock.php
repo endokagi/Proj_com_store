@@ -23,13 +23,11 @@
     <hr>
     <div class="container">
         <?php
-        session_start();
         echo '<form action="./confirm_add.php"method="post">';
         echo '<div class="input-group mb-3">';
         echo '<div class="input-group-prepend">';
         echo '<span class="input-group-text" id="inputGroup-sizing-lg">StockID</span>';
         echo '</div>';
-        // $_SESSION['']
         echo '<input type="text" value="'  . $_POST['stockid']. '" disabled class="form-control" aria-label="Large" aria-describedby="inputGroup-sizing-sm">';
         echo '<input type="hidden" name="stockid" value="'  . $_POST['stockid']. '">';
         echo '</div>';
