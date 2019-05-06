@@ -2,10 +2,6 @@
 session_start();
     if($_SERVER['REQUEST_METHOD']=='POST'){
         $i=$_POST['index'];
-        if(count($_SESSION['cartPID'])==0){
-            $_SESSION['cartStatus'] = "idle";
-        }
-            
         $_SESSION['cartTotolPrice'] -= $_SESSION['cartPrice'][$i]*$_SESSION['cartAmount'][$i];
 
         $connect = mysqli_connect("localhost", "root", "", "computerstore");
