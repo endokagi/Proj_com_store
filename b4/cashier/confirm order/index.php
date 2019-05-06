@@ -15,22 +15,20 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
       $sql = 'insert into ordering values(NULL,NULL,' . $_SESSION['cartTotolPrice'] . ',' . $_POST['cusid'] . ');';
       $result = mysqli_query($connect, $sql);
       $sqlSelectStockID = 'SELECT *
-        FROM stock
-        ORDER BY stockid DESC
+        FROM ordering
+        ORDER BY orderid DESC
         LIMIT 1';
       $result = mysqli_query($connect, $sqlSelectStockID);
       while($row=mysqli_fetch_array($result)){
         $orderingID = $row[0];
       }
-      echo $orderingID;
-      
       for ($i = 0; $i < count($_SESSION['cartPID']); $i++) {
         if ($_SESSION['cartPID'][$i]!='') {
-          $sql = 'insert into orderingdetail values(' . $orderingID . ',' . $_SESSION['cartPID'][$i]. ')';
+          $sql = 'insert into orderingdetail values(' . $orderingID . ',' . $_SESSION['cartPID'][$i]. ','.$_SESSION['cartAmount'][$i].')';
           mysqli_query($connect, $sql);
         }
       }
-
+      session_destroy();
       $_SESSION['alert_message'] = '<div class="alert alert-success alert-dismissible fade show" role="alert">
               <strong>Congratulation!</strong> Ordering successful.
               <button type="button" class="close" data-dismiss="alert" aria-label="Close">

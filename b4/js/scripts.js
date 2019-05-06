@@ -4,3 +4,9 @@ function confirmDelete() {
 function confirmEdit() {
     return confirm('Are you sure you want to edit this?');
 }
+function confirmRemove() {
+    return confirm('Are you sure you want to remove this?');
+}
+function confirmSubmit() {
+    return confirm('Are you sure you want to submit this?');
+}

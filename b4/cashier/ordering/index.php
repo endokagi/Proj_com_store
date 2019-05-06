@@ -41,7 +41,7 @@ session_start();
                         <span class="input-group-text" id="basic-addon1">Date(Year-Month-Day)</span>
                     </div>
                     <input type="text" class="form-control" placeholder="<?php echo date('Y-m-d'); ?>" disabled aria-label="Username" aria-describedby="basic-addon1">
-                    <a name="" class="btn btn-warning" href="../reset order/reset.php" role="button">Reset</a>
+                    <!--a name="" class="btn btn-warning" href="../reset order/reset.php" role="button">Reset</a-->
                 </div>
                 <div class="table-responsive">
                     <table class="table ">
