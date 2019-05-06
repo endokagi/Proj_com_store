@@ -83,13 +83,13 @@ session_start();
                                         </td>
                                         <td>
                                         <input type='number'  class='text-center' disabled value='" . $_SESSION['cartAmount'][$i] . "'>
-                                        <form action='../update amount of a product/updateAmount.php' method='post'>
+                                        <form action='../update amount of a product/index.php' method='post'>
                                         <input type='hidden' name='index' value='".$i."'>
                                         <input type='submit' value='update'></form>
                                         </td>
                                         <td>" . ($_SESSION['cartPrice'][$i] * $_SESSION['cartAmount'][$i]) .
                                         "(" . $_SESSION['cartPrice'][$i] . ")</td>  
-                                        <td><form action='../remove a product/remove.php' method='post'>
+                                        <td><form action='../remove a product/index.php' method='post'>
                                         <input type='hidden' name='index' value='".$i."'>
                                         <input type='submit' value='remove'>
                                         </form></td>
